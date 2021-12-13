@@ -29,7 +29,7 @@ function init(treeValues){
     let maxNode = tree.getMax();
 
     //Show Deepest Nodes
-    let deepestNodes = tree.getDeepest();    
+    let deepestNodes = tree.getDeepest();
 
     //Populate DOM
     populateDom(deepestNodes,aryTreePreOrder,aryTreeInOrder,aryTreePostOrder,treeValues,minNode,maxNode);    

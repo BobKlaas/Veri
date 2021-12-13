@@ -17,7 +17,6 @@ function setTreeArray(tree){
 
 //Deepest Nodes
 function setDeepestNodes(nodes){
-    console.log(nodes,'NODES');
     $("#deep-node-list").empty();
     nodes.forEach(item => {
         var html = `<li class="list-group-item">Deepest, ${item.node.value}; Depth, ${item.level}</li>`

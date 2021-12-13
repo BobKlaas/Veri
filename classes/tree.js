@@ -3,6 +3,9 @@ class Tree{
         this.root = root;
     }
 
+    maxlevel = 0;
+    deepestNodes = [];
+
     //Converts a value to a node "type" and adds it to the tree
     addValue(val){
         const n = new Node(parseInt(val));
@@ -48,9 +51,46 @@ class Tree{
     }
 
     //Get Deepest Nodes from Tree
-    getDeepest(){        
-        const r = this.root.getDeepestNodes();
-        return r.deepestNodes;        
+    getDeepest(){
+        this.traverseTree(this.root, 0);
+        return this.deepestNodes;
+    }
+
+    //Traverse tree to find the deepest nodes
+    traverseTree(root,level){
+
+        //[IF] Add root as deepest node
+        if(this.deepestNodes.length === 0) {
+            const n = {node: root, level: level};            
+            this.deepestNodes.push(n);
+        }    
+
+        //[IF] Level exceeds maxlevel recorded in traverse, this is a new max so clear array and add node
+        if(level > this.maxlevel){
+            this.maxlevel = level;
+            this.deepestNodes=[];
+            this.deepestNodes.push({node:root,level:level});
+        }else if(level == this.maxlevel){
+            this.deepestNodes.push({node:root,level:level});
+        }else{
+            //Do Nothing
+        }
+
+        //Has left child, no right child (continue traverse left, +1 to level)
+        if(root.left && !root.right) {
+            this.traverseTree(root.left,++level);
+        }
+        
+        //Has right child, no left child (continue traverse right, +1 to level)
+        if(root.right && !root.left) {
+            this.traverseTree(root.right,++level);
+        }
+
+        //Has both left and right child, increment level (continue traverse left/right, +1 to level)
+        if(root.left && root.right){
+            this.traverseTree(root.left,++level);
+            this.traverseTree(root.right,level);
+        }           
     }
 
     //Display Deepest Nodes in Console
