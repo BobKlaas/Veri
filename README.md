@@ -18,9 +18,10 @@ Instructions: Run index.html in a web browser with the javascript console open.
 
 ### Methods:
 You may call several custom methods on the Tree class.
+- **addValue()**: Adds a value to the tree
 - **getDeepest()**: Return the deepest node from the tree.
 - **getMin()**: Return the node with the lowest value in the tree.
 - **getMax()**: Return the node with the highest value in the tree.
-- **searchNode()**: Find a node by value and return it.
+- **search()**: Find a node by value and return it.
 - **traverse()**: Return an array of values sorted using (Pre-Order, In-Order, or Post-Order Traversal)
 

@@ -5,7 +5,7 @@ class Tree{
 
     //Converts a value to a node "type" and adds it to the tree
     addValue(val){
-        const n = new Node(val);
+        const n = new Node(parseInt(val));
         if(this.root == null){
             this.root = n;
         }else{
@@ -47,11 +47,18 @@ class Tree{
         return n;
     }
 
-    //Get Deepest Node
+    //Get Deepest Nodes from Tree
     getDeepest(){        
-        const r = this.root.getDeepestNode([],0,0);
-        console.log('R',r);
-        return r;        
+        const r = this.root.getDeepestNodes();
+        return r.deepestNodes;        
     }
 
+    //Display Deepest Nodes in Console
+    logDeepestNodes(aryDeepest){
+        if(aryDeepest != null && aryDeepest.length){
+            aryDeepest.forEach(item => console.log('Deepest, ' + item.node.value + '; Depth, ' + item.level));
+        }else{
+            console.log('Tree Depth: Tree is empty',);
+        }    
+    }
 }

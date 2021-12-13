@@ -97,46 +97,52 @@ class Node{
         }
     }
     
-    //Get Deepest Nodes in Tree
-    getDeepestNode(deepestNodes,level){
+     //Get Deepest Nodes in Tree
+     getDeepestNodes(){
+        var level = 0;
+        var maxlevel = 0;
+        var deepestNodes = [];
 
-        //[IF] Results is empty, add root node to results
-        if(deepestNodes.length === 0) {
-            const n = {node: this, level: level};            
-            deepestNodes.push(n);
-        }    
+        // Closure function to traverse tree while maintaining awareness of maxlevel & deepestNodes
+        function traverseTree(root,level){          
 
-        //[IF] Current level is greater than level, keep exists [ELSE] Add new node into deepestNodes
-        if(this != null){
-            let currentDeepest = deepestNodes.pop();
-            if(currentDeepest.level > level){            
-                deepestNodes.push(currentDeepest);
+            //[IF] Add root as deepest node
+            if(deepestNodes.length === 0) {
+                const n = {node: root, level: level};            
+                deepestNodes.push(n);
+            }    
+
+            //[IF] Level exceeds maxlevel recorded in traverse, this is a new max so clear array and add node
+            if(level > maxlevel){
+                maxlevel = level;
+                deepestNodes=[];
+                deepestNodes.push({node:root,level:level});
+            }else if(level == maxlevel){
+                deepestNodes.push({node:root,level:level});
             }else{
-                deepestNodes.push({node:this,level:level});
+                //Do Nothing
             }
+
+            //Has left child, no right child (continue traverse left)
+            if(root.left && !root.right) {
+                traverseTree(root.left,++level);
+            }
+            
+            //Has right child, no left child (continue traverse right)
+            if(root.right && !root.left) {
+                traverseTree(root.right,++level);
+            }
+
+            //Has both left and right child, increment level (continue traverse left/right)
+            if(root.left && root.right){
+                traverseTree(root.left,++level);
+                traverseTree(root.right,level);
+            }             
         }
 
-        //Has left child, no right child (continue traverse left)
-        if(this.left && !this.right) {
-            this.maxlevel++;
-            this.left.getDeepestNode(deepestNodes,++level);
-        }
+        //Call Closure to determine deepest nodes
+        traverseTree(this,level);
         
-        //Has right child, no left child (continue traverse right)
-        if(this.right && !this.left) {
-            this.maxlevel++;
-            this.right.getDeepestNode(deepestNodes,++level);
-        }
-
-        //Has both left and right child, increment level (continue traverse left/right)
-        if(this.left && this.right) {
-            this.maxlevel++;
-            this.left.getDeepestNode(deepestNodes,++level);
-            this.right.getDeepestNode(deepestNodes,level);
-        }
-
-        
-
-        return deepestNodes;    
+        return {deepestNodes,level:maxlevel};
     }
 }
