@@ -13,8 +13,8 @@ Your company needs you to implement a Binary Search Tree (BST), using the langua
 **Output:** deepest, 9; depth, 3
 
 ### Solution
-Solution Language: Javascript (Vanilla)
-Instructions: Run index.html in a web browser with the javascript console open. 
+Solution Language: Javascript (Vanilla)  
+Instructions: Run index.html in a web browser and use the UI to generate facts about your Binary Search Tree (BST).
 
 ### Methods:
 You may call several custom methods on the Tree class.
