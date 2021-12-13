@@ -1,0 +1,11 @@
+// Traversal Order: https://iq.opengenus.org/binary-tree-traversals-inorder-preorder-postorder/ 
+// Postorder tree walk: (Nodes from the left subtree get visited first, followed by the right subtree, and finally the root.
+// In-Order tree walk: Nodes from the left subtree get visited first, followed by the root node and right subtree.
+// Pre Order Tree Walk: The root node gets visited first, followed by left and right subtrees. (root, left, right)
+   
+
+Tree Input: [30,20,40,15,25,35,50,5,18,45,60]
+***************************************
+Pre-Order: {30,20,15,5,18,25,40,35,50,45,60}
+In-Order: {5,15,18,20,25,30,35,40,45,50,60}
+Post Order: {5,18,15,25,20,35,45,60,50,40,30}

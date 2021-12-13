@@ -31,45 +31,41 @@ class Node{
             this.left.addNode(n);
         }         
     }
-
-    // Traversal Order: https://iq.opengenus.org/binary-tree-traversals-inorder-preorder-postorder/ 
-    // Input: [30,20,40,15,25,35,50,5,18,45,60]
-    // Pre: {30 , 20 , 15 , 5 , 18 , 25 , 40 , 35 , 50 , 45 , 60} Tested
-    // In Order: {5 , 15 , 18 , 20 , 25 , 30 , 35 , 40 , 45 , 50 , 60} Tested
-    // Post: {5 , 18 , 15 , 25 , 20 , 35 , 45 , 60 , 50 , 40 , 30} Tested
    
-    // Pre Order Tree Walk: The root node gets visited first, followed by left and right subtrees. (root, left, right)
-    preOrderTraverse(){
-        console.log(this.value);
+    // Use Pre-Order to traverse the tree and return array of sorted tree values
+    preOrderTraverse(ary){        
+        ary.push(this.value);
         if(this.left != null){
-            this.left.preOrderTraverse();
+            this.left.preOrderTraverse(ary);
         }        
         if(this.right != null){
-            this.right.preOrderTraverse();
+            this.right.preOrderTraverse(ary);
         }  
+        return ary;
     }
     
-    // In-Order tree walk: Nodes from the left subtree get visited first, followed by the root node and right subtree.
-    inOrderTraverse(){
+    // Use In-Order to traverse the tree and return array of sorted tree values
+    inOrderTraverse(ary){
         if(this.left != null){
-            this.left.inOrderTraverse();
+            this.left.inOrderTraverse(ary);
         }
-        console.log(this.value);
+        ary.push(this.value);
         if(this.right != null){
-            this.right.inOrderTraverse();
+            this.right.inOrderTraverse(ary);
         }  
+        return ary;
     }
 
-    // Postorder tree walk: Nodes from the left subtree get visited first, followed by the right subtree, and finally the root.
-    postOrderTraverse(){
+    // Use post-order to traverse the tree and return array of sorted tree values
+    postOrderTraverse(ary){
         if(this.left != null){
-            this.left.postOrderTraverse();
+            this.left.postOrderTraverse(ary);
         }
-        
         if(this.right != null){
-            this.right.postOrderTraverse();
+            this.right.postOrderTraverse(ary);
         }  
-        console.log(this.value);
+        ary.push(this.value);        
+        return ary;
     }    
 
     //Search Binary Tree for value and return node if found
@@ -99,5 +95,48 @@ class Node{
         }else{            
             return this;
         }
+    }
+    
+    //Get Deepest Nodes in Tree
+    getDeepestNode(deepestNodes,level){
+
+        //[IF] Results is empty, add root node to results
+        if(deepestNodes.length === 0) {
+            const n = {node: this, level: level};            
+            deepestNodes.push(n);
+        }    
+
+        //[IF] Current level is greater than level, keep exists [ELSE] Add new node into deepestNodes
+        if(this != null){
+            let currentDeepest = deepestNodes.pop();
+            if(currentDeepest.level > level){            
+                deepestNodes.push(currentDeepest);
+            }else{
+                deepestNodes.push({node:this,level:level});
+            }
+        }
+
+        //Has left child, no right child (continue traverse left)
+        if(this.left && !this.right) {
+            this.maxlevel++;
+            this.left.getDeepestNode(deepestNodes,++level);
+        }
+        
+        //Has right child, no left child (continue traverse right)
+        if(this.right && !this.left) {
+            this.maxlevel++;
+            this.right.getDeepestNode(deepestNodes,++level);
+        }
+
+        //Has both left and right child, increment level (continue traverse left/right)
+        if(this.left && this.right) {
+            this.maxlevel++;
+            this.left.getDeepestNode(deepestNodes,++level);
+            this.right.getDeepestNode(deepestNodes,level);
+        }
+
+        
+
+        return deepestNodes;    
     }
 }

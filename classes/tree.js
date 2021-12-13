@@ -5,7 +5,7 @@ class Tree{
 
     //Converts a value to a node "type" and adds it to the tree
     addValue(val){
-        var n = new Node(val);
+        const n = new Node(val);
         if(this.root == null){
             this.root = n;
         }else{
@@ -14,26 +14,25 @@ class Tree{
     }
 
     //Traverse through the tree
-    traverse(order){       
+    traverse(order){   
+        let aryTreeValues = [];    
         switch(order) {
             case 'pre-order':
-                this.root.preOrderTraverse(order);
-                //console.log('PRE');
+                aryTreeValues = this.root.preOrderTraverse([]);                
                 break;
             case 'post-order':
-                this.root.postOrderTraverse(order);
-                //console.log('POST');
+                aryTreeValues = this.root.postOrderTraverse([]);
                 break;
             default:
-                this.root.inOrderTraverse(order);
-                //console.log('IN');
+                aryTreeValues = this.root.inOrderTraverse([]);
         }
+        return aryTreeValues;
     }
 
     //Search tree for NODE by value
     search(val){
-       var nodeExists = this.root.search(val);
-       return nodeExists;      
+       const n = this.root.search(val);
+       return n;      
     }
 
     //Get Node with lowest value
@@ -48,15 +47,11 @@ class Tree{
         return n;
     }
 
-    find(root,level){
-        if(this.root != null){
-            find(this.root.left, ++level);  
-            // Update level and rescue
-            if (level > maxLevel){
-                res = this.root.value;
-                maxLevel = level;
-            }
-            find(this.root.right, level);
-        }
+    //Get Deepest Node
+    getDeepest(){        
+        const r = this.root.getDeepestNode([],0,0);
+        console.log('R',r);
+        return r;        
     }
+
 }
